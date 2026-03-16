@@ -1,3 +1,10 @@
+## 🛠 Built With
+
+![Java](https://img.shields.io/badge/Java-17-orange)
+![JavaFX](https://img.shields.io/badge/JavaFX-GUI-blue)
+![OOP](https://img.shields.io/badge/Paradigm-OOP-green)
+![Git](https://img.shields.io/badge/Version%20Control-Git-red)
+
 # 🎮 DooR DasH – Scare vs Laugh Touchdown
 
 > *“We scare because we care.”* — Scarers  
@@ -232,6 +239,154 @@ At the start:
 📍 **Cell 0**
 
 ---
+
+# 🏗️ Technical Architecture
+
+This project was designed with a strong focus on **object-oriented software engineering**, modular design, and maintainable game architecture.
+
+The implementation separates **game logic**, **UI**, and **game state management** to ensure scalability and clean code organization.
+
+---
+
+## 💻 Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| **Java** | Core programming language |
+| **JavaFX** | Graphical User Interface (GUI) framework |
+| **Object-Oriented Programming (OOP)** | Core design paradigm |
+| **Git & GitHub** | Version control and collaboration |
+| **MVC-inspired architecture** | Separation between UI and game logic |
+
+---
+
+## 🧱 Software Design Principles
+
+The system follows several **software engineering best practices**:
+
+- **Encapsulation** → Game entities manage their own state
+- **Inheritance** → Monster types share common behavior
+- **Polymorphism** → Different monsters override abilities
+- **Abstraction** → Game logic separated from UI rendering
+- **Single Responsibility Principle** → Each class has one clear role
+
+These principles make the codebase **extensible and easy to maintain**.
+
+---
+
+## 🧩 Core System Components
+
+### 🎮 Game Engine
+
+Responsible for controlling the entire game flow:
+
+- Turn management
+- Dice rolling
+- Player movement
+- Win condition validation
+- Game state updates
+
+---
+
+### 🗺️ Board System
+
+Represents the **100-cell zigzag board** and manages interactions between players and cells.
+
+Handles:
+
+- Cell indexing and movement
+- Transport mechanics
+- Door activation
+- Cell effects
+
+---
+
+### 🧍 Monster System
+
+Defines the **monster entities and their abilities**.
+
+Each monster includes:
+
+- Role (SCARER / LAUGHER)
+- Monster type
+- Energy level
+- Special abilities
+- Powerup logic
+
+The monster system leverages **inheritance and polymorphism** to support different monster types.
+
+---
+
+### 🧱 Cell System
+
+Cells represent the interactive components of the board.
+
+Examples:
+
+- Door Cells
+- Card Cells
+- Transport Cells
+- Monster Cells
+- Normal Cells
+
+Each cell type implements its **own behavior when a player lands on it**.
+
+---
+
+### 🎴 Card Engine
+
+Manages:
+
+- Card deck
+- Card drawing
+- Card effects
+- Deck reshuffling
+
+Cards introduce **randomized gameplay mechanics** while maintaining rule consistency.
+
+---
+
+### 🖥️ User Interface (JavaFX)
+
+The graphical interface was implemented using **JavaFX**.
+
+Features include:
+
+- Board visualization
+- Player movement animations
+- Energy tracking
+- Turn indicators
+- Interactive gameplay feedback
+
+The UI layer interacts with the **game engine without embedding game logic**, maintaining clear architectural separation.
+
+---
+
+
+---
+
+## ⚙️ Key Engineering Challenges
+
+During development the project addressed several technical challenges:
+
+- Designing a **flexible board system** with many dynamic cell effects
+- Managing **complex game state transitions**
+- Implementing **monster abilities with different rule interactions**
+- Maintaining **clean separation between UI and game logic**
+- Handling **randomized card mechanics** while preserving game balance
+
+---
+
+## 🚀 Skills Demonstrated
+
+This project showcases practical experience with:
+
+- Object-Oriented Programming in Java
+- Software architecture design
+- Game logic implementation
+- JavaFX GUI development
+- Git-based team collaboration
+- Problem solving in complex rule system
 
 # 💻 Project Goals
 
