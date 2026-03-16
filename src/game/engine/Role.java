@@ -1,0 +1,9 @@
+package game.engine;
+
+// DON'T TOUCH OR CHANGE ANY VARIABLES
+// TOTAL GAME CRASH FALIURE EXPECTED
+
+public enum Role {
+	SCARER,
+	LAUGHER
+}

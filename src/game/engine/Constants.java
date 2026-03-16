@@ -1,0 +1,33 @@
+package game.engine;
+
+//DON'T TOUCH OR CHANGE ANY VARIABLES
+//TOTAL GAME CRASH FALIURE EXPECTED
+public final class Constants {
+	/* Board Attributes*/
+	public final int BOARD_SIZE = 100;
+	public final int BOARD_ROWS = 10;
+	public final int BOARD_COLS = 10;
+	public final int WINNING_POSITION = 99;
+	public final int STARTING_POSITION = 0;
+	
+	/* Special Cells Position*/
+	int[] MONSTER_CELL_INDICES = {2, 18, 34, 54, 82, 88};
+	int[] CONVEYOR_CELL_INDICES = {6, 22, 44, 52, 66};
+	int[] SOCK_CELL_INDICES = {32, 42, 74, 84, 98};
+	int[] CARD_CELL_INDICES = {4, 12, 28, 36, 48, 56, 60, 76, 86, 90};
+	
+	/* Energy Constants */
+	 public final int WINNING_ENERGY = 1000;
+	 public final int MIN_ENERGY = 0;
+	
+	/* Monsters Constants */ 
+	 public final int MULTITASKER_BONUS = 200;
+	 public final int SCHEMER_STEAL = 10;
+	 
+	/* Cell Constants */
+	 public final int SLIP_PENALTY = 100;
+	 
+	/* Power Constants */
+	public final int POWERUP_COST = 500;
+	
+}
