@@ -20,6 +20,7 @@ public abstract class Monster implements Comparable<Monster> {
 			this.name = name;
 			this.description = description;
 			this.originalRole = originalRole;
+			this.role = originalRole;
 			this.energy = energy;
 			this.position=0;
 			this.confusionTurns=0;
@@ -83,12 +84,20 @@ public abstract class Monster implements Comparable<Monster> {
 		{
 			this.energy=e;
 		}
+		else
+		{
+			this.energy=0;
+		}
 	}
 	public void setPosition(int p)
 	{
 		if(p>=0 && p<=99)
 		{
 			this.position=p;
+		}
+		else
+		{
+			this.position = p%100;
 		}
 	}
 	public void setFrozen(boolean f)

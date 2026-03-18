@@ -9,9 +9,9 @@ import game.engine.cells.*;
 import game.engine.monsters.*;
 public class DataLoader {
 	
-	public static final String CARDS_FILE_NAME = "cards.csv";
-	public static final String CELLS_FILE_NAME = "cells.csv";
-	public static final String MONSTERS_FILE_NAME = "monsters.csv";
+	private static final String CARDS_FILE_NAME = "cards.csv";
+	private static final String CELLS_FILE_NAME = "cells.csv";
+	private static final String MONSTERS_FILE_NAME = "monsters.csv";
 	
 	
 	public static ArrayList<Card> readCards() throws IOException{
@@ -27,21 +27,21 @@ public class DataLoader {
             int rarity = Integer.parseInt(data[3]);
 
             switch (type) {
-                case "SwapperCard":
+                case "SWAPPER":
                     cardsList.add(new SwapperCard(name, desc, rarity)); 
                     break;
-                case "ShieldCard":
+                case "SHIELD":
                     cardsList.add(new ShieldCard(name, desc, rarity));
                     break;
-                case "EnergyStealCard":
+                case "ENERGYSTEAL":
                     int energy = Integer.parseInt(data[4]);
                     cardsList.add(new EnergyStealCard(name, desc, rarity, energy)); 
                     break;
-                case "StartOverCard":
+                case "STARTOVER":
                     boolean lucky = Boolean.parseBoolean(data[4]);
                     cardsList.add(new StartOverCard(name, desc, rarity, lucky)); 
                     break;
-                case "ConfusionCard":
+                case "CONFUSION":
                     int duration = Integer.parseInt(data[4]);
                     cardsList.add(new ConfusionCard(name, desc, rarity, duration)); 
                     break;
@@ -89,16 +89,16 @@ public class DataLoader {
 	            int energy = Integer.parseInt(data[4]);
 
 	            switch (type) {
-	                case "Dasher":
+	                case "DASHER":
 	                    monstersList.add(new Dasher(name, desc, role, energy)); 
 	                    break;
-	                case "Dynamo":
+	                case "DYNAMO":
 	                    monstersList.add(new Dynamo(name, desc, role, energy));
 	                    break;
-	                case "MultiTasker":
+	                case "MULTITASKER":
 	                    monstersList.add(new MultiTasker(name, desc, role, energy)); 
 	                    break;
-	                case "Schemer":
+	                case "SCHEMER":
 	                    monstersList.add(new Schemer(name, desc, role, energy)); 
 	                    break;
 	            }

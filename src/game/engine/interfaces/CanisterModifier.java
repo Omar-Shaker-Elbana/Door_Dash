@@ -1,7 +1,7 @@
 package game.engine.interfaces;
 
-/*import game.engine.Monster;*/
+import game.engine.monsters.Monster;
 
 public interface CanisterModifier {
-	void modifyCanister(int health);
+	void modifyCanister(Monster monster);
 }
