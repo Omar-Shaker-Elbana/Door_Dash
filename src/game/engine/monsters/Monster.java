@@ -91,13 +91,17 @@ public abstract class Monster implements Comparable<Monster> {
 	}
 	public void setPosition(int p)
 	{
-		if(p>=0 && p<=99)
+		if(p<0)
 		{
-			this.position=p;
+			this.position=0;
+		}
+		else if(p>99)
+		{
+			this.position=99;
 		}
 		else
 		{
-			this.position = p%100;
+			this.position = p;
 		}
 	}
 	public void setFrozen(boolean f)
@@ -111,6 +115,47 @@ public abstract class Monster implements Comparable<Monster> {
 	public void setConfusionTurns(int n)
 	{
 		this.confusionTurns=n;
+	}
+	
+	abstract void executePowerupEffect(Monster opponentMonster);
+	public boolean isConfused()
+	{
+		if(this.getConfusionTurns() == 0)
+		{
+			return false;
+		}
+		return true;
+	}
+	public void move(int distance)
+	{
+		
+			setPosition(this.position+distance);
+		
+	}
+	public final void alterEnergy(int energy){
+			if(isShielded() == true && energy < 0)
+			{
+				this.setShielded(false);
+				return;
+			}
+			int totalEnergy = this.getEnergy()+energy;
+			if(totalEnergy < 0)
+			{
+				totalEnergy=0;
+			}
+			this.setEnergy(totalEnergy);
+	}
+	public void decrementConfusion()
+	{	
+		
+		if(this.confusionTurns>0)
+		{
+			this.confusionTurns--;
+			if(this.confusionTurns == 0){
+				this.role=this.originalRole;
+			}
+		}
+			
 	}
 	
 }
