@@ -1,4 +1,5 @@
 package game.engine;
+<<<<<<< HEAD
 import game.engine.cells.*;
 import game.engine.monsters.Monster;
 import game.engine.cards.Card;
@@ -182,6 +183,28 @@ public class Board {
         getCell(opponent.getPosition()).setMonster(opponent);
     }
     	
+=======
+
+import java.util.ArrayList;
+
+import game.engine.cards.Card;
+import game.engine.cells.*;
+import game.engine.monsters.Monster;
+
+public class Board {
+	private Cell[][] boardCells;
+	private static ArrayList<Monster> stationedMonsters; 
+	private static ArrayList<Card> originalCards;
+	public static ArrayList<Card> cards;
+	
+	public Board(ArrayList<Card> readCards) {
+		this.boardCells = new Cell[Constants.BOARD_ROWS][Constants.BOARD_COLS];
+		stationedMonsters = new ArrayList<Monster>();
+		originalCards = readCards;
+		cards = new ArrayList<Card>();
+	}
+	
+>>>>>>> b39bd8a76dee9214f0ad5ed04b197624196b3cfc
 	public Cell[][] getBoardCells() {
 		return boardCells;
 	}

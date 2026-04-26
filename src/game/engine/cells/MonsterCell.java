@@ -14,6 +14,7 @@ public class MonsterCell extends Cell {
 		return cellMonster;
 	}
 
+<<<<<<< HEAD
     public void onLand(Monster landingMonster, Monster opponentMonster) {
         super.onLand(landingMonster, opponentMonster);
         
@@ -34,4 +35,6 @@ public class MonsterCell extends Cell {
         }
     }
 
+=======
+>>>>>>> b39bd8a76dee9214f0ad5ed04b197624196b3cfc
 }
