@@ -34,36 +34,51 @@ public class DoorCell extends Cell implements CanisterModifier {
 	}
 
 	
+	@Override
 	public void modifyCanisterEnergy(Monster monster, int canisterValue) {
-	    if (monster.getRole() == this.getRole()) {
+	    if (monster.getRole() == this.role) {
 	        monster.alterEnergy(canisterValue);
-	    } 
-	    else {
-	        if (monster.isShielded()) {
-	            monster.setShielded(false);
-	        } else {
-	            monster.alterEnergy(-canisterValue); 
-	        }
+	    } else {
+	        monster.alterEnergy(-canisterValue);
 	    }
 	}
 
 	
+	@Override
 	public void onLand(Monster landingMonster, Monster opponentMonster) {
 	    super.onLand(landingMonster, opponentMonster);
-	    
-	    if (!this.isActivated()) {
-	        int energyVal = this.getEnergy();
-	        
-	        this.modifyCanisterEnergy(landingMonster, energyVal);
-	        
-	        for (Monster m : Board.getStationedMonsters()) {
-	            if (m.getRole() == landingMonster.getRole()) {
-	                this.modifyCanisterEnergy(m, energyVal);
+
+	    if (this.activated) return;
+
+	    int energyVal = this.energy;
+	    boolean energyChanged = false;
+
+	    // Before energy
+	    int before = landingMonster.getEnergy();
+
+	    // Apply to landing monster
+	    modifyCanisterEnergy(landingMonster, energyVal);
+
+	    if (landingMonster.getEnergy() != before) {
+	        energyChanged = true;
+	    }
+
+	    // Apply to teammates
+	    for (Monster m : Board.getStationedMonsters()) {
+	        if (m.getRole() == landingMonster.getRole()) {
+	            int beforeTeam = m.getEnergy();
+
+	            modifyCanisterEnergy(m, energyVal);
+
+	            if (m.getEnergy() != beforeTeam) {
+	                energyChanged = true;
 	            }
 	        }
-	        
-	        this.setActivated(true);
+	    }
+
+	    // Activate ONLY if something actually changed
+	    if (energyChanged) {
+	        this.activated = true;
 	    }
 	}
-
 }

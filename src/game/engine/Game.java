@@ -22,6 +22,10 @@ public class Game {
         );
         this.current = player;
 
+        allMonsters.remove(player);
+        allMonsters.remove(opponent);
+
+        
         board.setStationedMonsters(board.getStationedMonsters());
         board.initializeBoard(DataLoader.readCells());
     }
@@ -70,15 +74,16 @@ public class Game {
         return (int)(Math.random() * 6) + 1;
     }
 
-    void usePowerup() throws OutOfEnergyException {
+    public void usePowerup() throws OutOfEnergyException {
         if (this.current.getEnergy() >= Constants.POWERUP_COST) {
+            this.current.alterEnergy(-Constants.POWERUP_COST); //  deduct cost
             this.current.executePowerupEffect(this.getCurrentOpponent());
         } else {
             throw new OutOfEnergyException();
         }
     }
 
-    void playTurn() throws InvalidMoveException {
+    public void playTurn() throws InvalidMoveException {
         if (this.current.isFrozen()) {
             this.current.setFrozen(false);
         } else {

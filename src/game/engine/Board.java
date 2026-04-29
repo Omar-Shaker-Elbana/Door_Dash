@@ -14,20 +14,18 @@ public class Board {
 
     public Board(ArrayList<Card> readCards) {
         this.boardCells = new Cell[Constants.BOARD_ROWS][Constants.BOARD_COLS];
-
         stationedMonsters = new ArrayList<>();
         cards = new ArrayList<>();
         originalCards = new ArrayList<>();
 
-        // Expand by rarity into originalCards
+        // Just add each card once — setCardsByRarity() handles expansion
         for (Card c : readCards) {
-            for (int i = 0; i < c.getRarity(); i++) {
-                originalCards.add(c);
-            }
+            originalCards.add(c);
         }
         setCardsByRarity();
         reloadCards();
     }
+    
     private void setCardsByRarity() {
         ArrayList<Card> expanded = new ArrayList<>();
         for (Card c : originalCards) {
@@ -61,11 +59,9 @@ public class Board {
         if (this.boardCells == null) {
             this.boardCells = new Cell[Constants.BOARD_ROWS][Constants.BOARD_COLS];
         }
-
         ArrayList<DoorCell> doors = new ArrayList<>();
         ArrayList<ConveyorBelt> conveyors = new ArrayList<>();
         ArrayList<ContaminationSock> socks = new ArrayList<>();
-
         if (specialCells != null) {
             for (Cell cell : specialCells) {
                 if (cell instanceof DoorCell) doors.add((DoorCell) cell);
@@ -73,12 +69,10 @@ public class Board {
                 else if (cell instanceof ContaminationSock) socks.add((ContaminationSock) cell);
             }
         }
-
         int doorIndex = 0;
         int conveyorIndex = 0;
         int sockIndex = 0;
         int monsterIndex = 0;
-
         for (int i = 0; i < Constants.BOARD_SIZE; i++) {
             if (contains(Constants.MONSTER_CELL_INDICES, i)) {
                 Monster stationed = null;
@@ -86,38 +80,36 @@ public class Board {
                     stationed = stationedMonsters.get(monsterIndex++);
                     stationed.setPosition(i);
                 }
-                setCell(i, new MonsterCell("Monster Cell", stationed));
+                //  FIXED: use monster's name instead of hardcoded "Monster Cell"
+                String cellName = (stationed != null) ? stationed.getName() : "Monster Cell";
+                setCell(i, new MonsterCell(cellName, stationed));
 
             } else if (contains(Constants.CARD_CELL_INDICES, i)) {
                 setCell(i, new CardCell("Card Cell"));
-
             } else if (contains(Constants.CONVEYOR_CELL_INDICES, i)) {
                 if (conveyorIndex < conveyors.size()) {
                     setCell(i, conveyors.get(conveyorIndex++));
                 } else {
                     setCell(i, new ConveyorBelt("Fallback Conveyor", 1));
                 }
-
             } else if (contains(Constants.SOCK_CELL_INDICES, i)) {
                 if (sockIndex < socks.size()) {
                     setCell(i, socks.get(sockIndex++));
                 } else {
                     setCell(i, new ContaminationSock("Fallback Sock", -1));
                 }
-
             } else if (i % 2 != 0) {
                 if (doorIndex < doors.size()) {
                     setCell(i, doors.get(doorIndex++));
                 } else {
                     setCell(i, new DoorCell("Fallback Door", Role.SCARER, 0));
                 }
-
             } else {
                 setCell(i, new Cell("Regular Cell"));
             }
         }
     }
-
+    
     private boolean contains(int[] arr, int targetValue) {
         if (arr == null) return false;
         for (int val : arr) {
@@ -168,9 +160,11 @@ public class Board {
             throw new InvalidMoveException(InvalidMoveException.getMsg());
         }
 
-        if (currentMonster.isConfused()) currentMonster.decrementConfusion();
-        if (opponentMonster.isConfused()) opponentMonster.decrementConfusion();
-
+        if (currentMonster.isConfused()) {
+            currentMonster.decrementConfusion();
+            if (opponentMonster.isConfused()) opponentMonster.decrementConfusion();
+        }
+        
         updateMonsterPositions(currentMonster, opponentMonster);
     }
 
