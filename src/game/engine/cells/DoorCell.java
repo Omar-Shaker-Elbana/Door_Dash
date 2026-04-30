@@ -47,38 +47,26 @@ public class DoorCell extends Cell implements CanisterModifier {
 	@Override
 	public void onLand(Monster landingMonster, Monster opponentMonster) {
 	    super.onLand(landingMonster, opponentMonster);
-
 	    if (this.activated) return;
 
-	    int energyVal = this.energy;
-	    boolean energyChanged = false;
+	    boolean isGain = (landingMonster.getRole() == this.role);
 
-	    // Before energy
-	    int before = landingMonster.getEnergy();
-
-	    // Apply to landing monster
-	    modifyCanisterEnergy(landingMonster, energyVal);
-
-	    if (landingMonster.getEnergy() != before) {
-	        energyChanged = true;
+	    if (!isGain && landingMonster.isShielded()) {
+	        landingMonster.setShielded(false);
+	        return;
 	    }
 
-	    // Apply to teammates
+	    // Apply to landing monster
+	    modifyCanisterEnergy(landingMonster, this.energy);
+
+	    // Apply to teammates — use landing monster's direction, NOT re-evaluate per monster
+	    int teamEffect = isGain ? this.energy : -this.energy;
 	    for (Monster m : Board.getStationedMonsters()) {
 	        if (m.getRole() == landingMonster.getRole()) {
-	            int beforeTeam = m.getEnergy();
-
-	            modifyCanisterEnergy(m, energyVal);
-
-	            if (m.getEnergy() != beforeTeam) {
-	                energyChanged = true;
-	            }
+	            m.alterEnergy(teamEffect);
 	        }
 	    }
 
-	    // Activate ONLY if something actually changed
-	    if (energyChanged) {
-	        this.activated = true;
-	    }
+	    this.activated = true;
 	}
 }

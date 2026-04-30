@@ -9,27 +9,28 @@ public class ContaminationSock extends TransportCell implements CanisterModifier
         super(name, effect);
     }
 
+    @Override
     public void onLand(Monster landingMonster, Monster opponentMonster) {
-        super.onLand(landingMonster, opponentMonster);
-        this.transport(landingMonster);  // delegate everything to transport()
+        super.onLand(landingMonster, opponentMonster); // already calls this.transport()
     }
 
+    @Override
     public void modifyCanisterEnergy(Monster monster, int canisterValue) {
         monster.alterEnergy(canisterValue);
     }
 
+    @Override
     public void transport(Monster monster) {
-        int newPosition = monster.getPosition() + (-Math.abs(this.getEffect()));
+        int newPosition = monster.getPosition() + this.getEffect(); // effect is already negative
         if (newPosition < 0) {
             newPosition = (newPosition % Constants.BOARD_SIZE + Constants.BOARD_SIZE) % Constants.BOARD_SIZE;
         }
         monster.setPosition(newPosition);
 
-        // Handle shield/energy logic here so it works whether called directly or via onLand
         if (monster.isShielded()) {
-            monster.setShielded(false);  // Shield absorbs the penalty, but is consumed
+            monster.setShielded(false); // shield absorbs energy penalty
         } else {
-            monster.alterEnergy(-Constants.SLIP_PENALTY);  // No shield take energy hit
+            monster.alterEnergy(-Constants.SLIP_PENALTY);
         }
     }
 }

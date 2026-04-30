@@ -26,7 +26,7 @@ public class Game {
         allMonsters.remove(opponent);
 
         
-        board.setStationedMonsters(board.getStationedMonsters());
+        board.setStationedMonsters(new ArrayList<>(allMonsters));
         board.initializeBoard(DataLoader.readCells());
     }
 
